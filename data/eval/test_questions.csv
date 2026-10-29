@@ -1,0 +1,21 @@
+question,expected_doc
+"What documents do I need for a customer address change?",SOP-OPS-014
+"How long does an address update take at the branch?",SOP-OPS-014
+"How often must a high risk customer do re-KYC?",POL-KYC-003
+"Can we freeze an account if KYC is overdue?",POL-KYC-003
+"Customer lost their debit card, how do they block it?",SOP-CARD-007
+"What is the fee for a replacement card?",SOP-CARD-007
+"ATM did not give cash but money was debited, when is it refunded?",SOP-DSP-009
+"UPI payment failed but amount deducted, what is the reversal timeline?",SOP-DSP-009
+"How many days before a production release should I raise the CR?",SOP-DLV-021
+"When does the CAB meet?",SOP-DLV-021
+"Can I deploy during month end?",SOP-DLV-021
+"How should account numbers be masked in emails?",POL-SEC-002
+"Can I use ChatGPT with client code?",POL-SEC-002
+"What is the response time for a Sev1 incident?",SOP-INC-011
+"When is the RCA due after an outage?",SOP-INC-011
+"How early should I apply for a week of leave?",HR-LV-004
+"What is the cafeteria menu this week?",NONE
+"How do I reset my laptop VPN password?",NONE
+"What is the current home loan interest rate?",NONE
+"Who won the cricket match yesterday?",NONE

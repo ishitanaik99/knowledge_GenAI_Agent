@@ -1,0 +1,126 @@
+{
+ "lost": [
+  "stolen",
+  "block"
+ ],
+ "stolen": [
+  "lost",
+  "block"
+ ],
+ "misplace": [
+  "lost",
+  "block"
+ ],
+ "block": [
+  "lost"
+ ],
+ "deploy": [
+  "release",
+  "change",
+  "production"
+ ],
+ "release": [
+  "change",
+  "production"
+ ],
+ "prod": [
+  "production"
+ ],
+ "golive": [
+  "release"
+ ],
+ "refund": [
+  "reversal",
+  "reverse"
+ ],
+ "money": [
+  "amount"
+ ],
+ "reverse": [
+  "reversal"
+ ],
+ "cash": [
+  "atm"
+ ],
+ "leave": [
+  "vacation"
+ ],
+ "vacation": [
+  "leave"
+ ],
+ "holiday": [
+  "leave"
+ ],
+ "wfh": [
+  "work",
+  "home"
+ ],
+ "outage": [
+  "incident",
+  "severity",
+  "down"
+ ],
+ "incident": [
+  "severity"
+ ],
+ "sev1": [
+  "severity",
+  "1"
+ ],
+ "p1": [
+  "severity",
+  "1"
+ ],
+ "mask": [
+  "masking"
+ ],
+ "pii": [
+  "personal",
+  "data"
+ ],
+ "chatgpt": [
+  "ai",
+  "tool"
+ ],
+ "genai": [
+  "ai"
+ ],
+ "rekyc": [
+  "kyc",
+  "periodic"
+ ],
+ "kyc": [
+  "periodic"
+ ],
+ "address": [
+  "addr"
+ ],
+ "shift": [
+  "change"
+ ],
+ "move": [
+  "change",
+  "address"
+ ],
+ "tat": [
+  "turnaround"
+ ],
+ "sla": [
+  "turnaround"
+ ],
+ "compensation": [
+  "penalty"
+ ],
+ "card": [
+  "debit"
+ ],
+ "update": [
+  "change"
+ ],
+ "long": [
+  "turnaround"
+ ],
+ "take": [
+  "turnaround"
+ ]
+}

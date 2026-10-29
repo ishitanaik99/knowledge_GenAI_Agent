@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SOP Desk</title>
+<meta name="description" content="Ask your SOPs. Answers come only from approved documents, with sources.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='5' y='9' width='20' height='18' rx='3' fill='%232b4bd8'/%3E%3Crect x='8' y='5' width='20' height='18' rx='3' fill='%23ffd75e' stroke='%2315201c' stroke-width='1.5'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><rect x="4" y="10" width="20" height="18" rx="3" class="m1"/><rect x="8" y="5" width="20" height="18" rx="3" class="m2"/><path d="M12 11h12M12 15h9M12 19h11" class="m3"/></svg>
+    <span class="wordmark">SOP Desk</span>
+  </div>
+  <nav class="views" role="tablist" aria-label="Views">
+    <button role="tab" data-view="desk" aria-selected="true">Desk</button>
+    <button role="tab" data-view="queue" aria-selected="false">Expert queue <span class="count" id="queue-count" hidden>0</span></button>
+    <button role="tab" data-view="insights" aria-selected="false">Insights</button>
+  </nav>
+  <div class="top-right">
+    <span class="engine" id="engine" title="Which model makes the decisions"><span class="dot"></span><span id="engine-text">Connecting…</span></span>
+    <button class="icon-btn" id="theme-btn" aria-label="Switch light or dark theme" title="Theme">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9Z"/></svg>
+    </button>
+  </div>
+</header>
+
+<!-- ================= DESK ================= -->
+<main id="view-desk" class="desk">
+  <div class="desk-switch" role="tablist" aria-label="Panels">
+    <button data-pane="library" aria-selected="false">Library</button>
+    <button data-pane="chat" aria-selected="true">Chat</button>
+    <button data-pane="evidence" aria-selected="false">Source</button>
+  </div>
+
+  <aside class="pane library" id="pane-library" aria-label="Document library">
+    <div class="pane-head">
+      <h2>Library</h2>
+      <span class="meta" id="lib-meta"></span>
+    </div>
+    <label class="tray" id="tray" for="file-input">
+      <input type="file" id="file-input" multiple accept=".pdf,.docx,.md,.txt">
+      <span class="tray-art" aria-hidden="true"><span></span><span></span><span></span></span>
+      <span class="tray-title">Drop SOPs here</span>
+      <span class="tray-sub" id="tray-sub">PDF, Word, Markdown or text · up to 10 MB each</span>
+    </label>
+    <ul class="uploads" id="uploads" aria-live="polite"></ul>
+    <div class="filter"><input id="doc-filter" type="search" placeholder="Filter documents" aria-label="Filter documents"></div>
+    <ul class="doc-list" id="doc-list"></ul>
+    <button class="link-btn" id="reset-lib">Restore sample library</button>
+  </aside>
+
+  <section class="pane chat" id="pane-chat" aria-label="Chat">
+    <div class="thread" id="thread">
+      <div class="welcome" id="welcome">
+        <p class="eyebrow">Internal knowledge desk</p>
+        <h1>Ask the rulebook.<br><span>Get the page, not a guess.</span></h1>
+        <p class="lede">Every answer is built from your approved documents and points to the exact section. If the documents don't cover it, the question goes to an expert.</p>
+        <div class="suggest" id="suggest"></div>
+      </div>
+    </div>
+    <form class="composer" id="composer">
+      <textarea id="q" rows="1" maxlength="600" placeholder="Ask about a process or policy…" aria-label="Your question"></textarea>
+      <button class="send" id="send" type="submit" aria-label="Ask">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+      </button>
+    </form>
+    <p class="composer-note">Answers come only from documents in the library. Don't enter customer data.</p>
+  </section>
+
+  <aside class="pane evidence" id="pane-evidence" aria-label="Source" aria-live="polite">
+    <div class="ev-empty" id="ev-empty">
+      <div class="ev-stack" aria-hidden="true"><span></span><span></span><span></span></div>
+      <p><b>Sources open here.</b><br>Click a numbered citation in an answer, or a document in the library.</p>
+    </div>
+    <article class="ev-doc" id="ev-doc" hidden></article>
+  </aside>
+</main>
+
+<!-- ================= EXPERT QUEUE ================= -->
+<main id="view-queue" class="page" hidden>
+  <div class="page-head">
+    <div>
+      <p class="eyebrow">Human in the loop</p>
+      <h1>Expert queue</h1>
+      <p class="lede">Questions the documents couldn't answer. Your reply is saved to the library, so the next person gets it with a citation.</p>
+    </div>
+  </div>
+  <div class="tickets" id="tickets"></div>
+</main>
+
+<!-- ================= INSIGHTS ================= -->
+<main id="view-insights" class="page" hidden>
+  <div class="page-head">
+    <div>
+      <p class="eyebrow">Pilot measurement</p>
+      <h1>Insights</h1>
+      <p class="lede">How the desk is being used, and how accurate its search is.</p>
+    </div>
+  </div>
+  <div class="kpis" id="kpis"></div>
+  <div class="ins-grid">
+    <section class="card">
+      <h3>Most cited documents</h3>
+      <ol class="bars" id="top-docs"></ol>
+    </section>
+    <section class="card">
+      <h3>Recent questions</h3>
+      <ul class="recent" id="recent"></ul>
+    </section>
+  </div>
+  <section class="card eval">
+    <div class="eval-head">
+      <div>
+        <h3>Retrieval test</h3>
+        <p class="muted">Checks that search ranks the right document first and refuses questions the documents don't cover. No AI cost. Upload your own CSV with columns <code>question, expected_doc</code> (use NONE for out-of-scope).</p>
+      </div>
+      <div class="eval-actions">
+        <label class="btn ghost" for="eval-file">Upload test CSV<input type="file" id="eval-file" accept=".csv" hidden></label>
+        <button class="btn primary" id="eval-run">Run sample test</button>
+      </div>
+    </div>
+    <div id="eval-out"></div>
+  </section>
+</main>
+
+<!-- ================= ACCESS GATE ================= -->
+<div class="gate" id="gate" hidden>
+  <form class="gate-card" id="gate-form">
+    <svg class="mark big" viewBox="0 0 32 32" aria-hidden="true"><rect x="4" y="10" width="20" height="18" rx="3" class="m1"/><rect x="8" y="5" width="20" height="18" rx="3" class="m2"/><path d="M12 11h12M12 15h9M12 19h11" class="m3"/></svg>
+    <h2>SOP Desk pilot</h2>
+    <p>Enter the access code from your project lead.</p>
+    <input id="gate-code" type="password" autocomplete="current-password" placeholder="Access code" aria-label="Access code">
+    <p class="gate-err" id="gate-err" hidden>That code didn't work. Check it and try again.</p>
+    <button class="btn primary" type="submit">Enter</button>
+  </form>
+</div>
+
+<div class="toast" id="toast" role="status" hidden></div>
+<script src="/static/app.js"></script>
+</body>
+</html>

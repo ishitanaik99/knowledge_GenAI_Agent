@@ -1,0 +1,22 @@
+# Render Blueprint: New -> Blueprint -> pick this repo. Render reads this file.
+services:
+  - type: web
+    name: sop-desk
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.8
+      - key: LLM_API_KEY        # your LLM key; Render asks for it during setup, it never goes in the code
+        sync: false
+      - key: ACCESS_CODE        # code people type to use the app; leave empty to keep it open
+        sync: false
+    # Uploads and tickets live on local disk, which the free plan resets on every deploy/restart.
+    # To keep them, use a paid plan, uncomment the disk below and add the env var DATA_DIR=/var/data
+    # disk:
+    #   name: sop-desk-data
+    #   mountPath: /var/data
+    #   sizeGB: 1
